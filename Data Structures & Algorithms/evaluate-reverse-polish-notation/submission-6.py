@@ -1,0 +1,32 @@
+from collections import deque
+import math
+
+class Solution:
+
+    def eval(self, l,r,o):
+        l = int(l)
+        r = int(r)
+        if o == "*":
+            return l * r
+        elif o == "+":
+            return l + r
+        elif o == "-":
+            return l - r
+        elif o == "/":
+            return int(l/r)
+            
+
+
+    def evalRPN(self, tokens: List[str]) -> int:
+        operators = {"*","/","+","-"}
+        stack = deque()
+        for t in tokens:
+            if t not in operators:
+                stack.append(t)
+            else:
+                r = stack.pop()
+                l = stack.pop()
+                v = self.eval(l,r,t)
+                stack.append(v)
+        
+        return int(stack[0])
